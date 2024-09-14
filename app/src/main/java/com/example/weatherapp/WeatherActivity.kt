@@ -1,6 +1,5 @@
 package com.example.weatherapp
 
-import android.adservices.common.AdSelectionSignals.EMPTY
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -35,7 +34,6 @@ import com.example.weatherapp.common.MyApplication
 import com.example.weatherapp.model.WeatherResponseState
 import com.example.weatherapp.model.WeatherViewModel
 import com.example.weatherapp.ui.theme.WeatherAppTheme
-import java.util.prefs.Preferences
 import javax.inject.Inject
 
 class WeatherActivity : ComponentActivity() {
@@ -164,12 +162,26 @@ class WeatherActivity : ComponentActivity() {
                     )
                 }
             }
-            ShowInfo(stringResource(id = R.string.temp, uiData.uiModel.temp))
-            ShowInfo(stringResource(id = R.string.desc, uiData.uiModel.description))
-            ShowInfo(stringResource(id = R.string.humidity, uiData.uiModel.humidity))
-            ShowInfo(stringResource(id = R.string.pressure, uiData.uiModel.pressure))
-            ShowInfo(stringResource(id = R.string.wind, uiData.uiModel.windSpeed))
-            ShowInfo(stringResource(id = R.string.location, uiData.uiModel.location))
+            val info = buildString {
+                appendLine(stringResource(id = R.string.temp, uiData.uiModel.temp))
+                appendLine()
+                appendLine(stringResource(id = R.string.desc, uiData.uiModel.description))
+                appendLine()
+                appendLine(stringResource(id = R.string.humidity, uiData.uiModel.humidity))
+                appendLine()
+                appendLine(stringResource(id = R.string.pressure, uiData.uiModel.pressure))
+                appendLine()
+                appendLine(stringResource(id = R.string.wind, uiData.uiModel.windSpeed))
+                appendLine()
+                appendLine(stringResource(id = R.string.location, uiData.uiModel.location))
+            }
+            Text(
+                text = info,
+                style = TextStyle(fontSize = 16.sp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
         }
     }
 
@@ -191,19 +203,5 @@ class WeatherActivity : ComponentActivity() {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(text = msg, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 14.sp))
         }
-    }
-
-    /**
-     * Show weather based on value
-     */
-    @Composable
-    private fun ShowInfo(value: String) {
-        Text(
-            text = value,
-            style = TextStyle(fontSize = 14.sp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 4.dp)
-        )
     }
 }
