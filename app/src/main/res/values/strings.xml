@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="temp">Temperature : %s C</string>
+    <string name="desc">Description : %s</string>
+    <string name="location">Location : %s</string>
+    <string name="humidity">Humidity  : %s %%</string>
+    <string name="wind">Wind    : %s m/s</string>
+    <string name="pressure">Pressure    : %s hPa</string>
+    <string name="title">Weather Report</string>
+    <string name="hint">Enter city..</string>
+</resources>
