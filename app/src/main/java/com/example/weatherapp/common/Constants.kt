@@ -5,4 +5,6 @@ object Constants {
     const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
     const val IMAGE_BASE_URL = "https://openweathermap.org/img/wn/"
     const val API_ERROR_MSG = "Something went wrong. Please try again"
+    const val SHARED_PREFERENCE_KEY = "weatherInfo"
+    const val KEY_CITY = "city"
 }

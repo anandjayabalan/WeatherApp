@@ -1,5 +1,8 @@
 package com.example.weatherapp
 
+import android.adservices.common.AdSelectionSignals.EMPTY
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,10 +29,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.example.weatherapp.common.Constants.KEY_CITY
+import com.example.weatherapp.common.Constants.SHARED_PREFERENCE_KEY
 import com.example.weatherapp.common.MyApplication
 import com.example.weatherapp.model.WeatherResponseState
 import com.example.weatherapp.model.WeatherViewModel
 import com.example.weatherapp.ui.theme.WeatherAppTheme
+import java.util.prefs.Preferences
 import javax.inject.Inject
 
 class WeatherActivity : ComponentActivity() {
@@ -38,6 +44,7 @@ class WeatherActivity : ComponentActivity() {
     private val viewModel: WeatherViewModel by viewModels {
         factory
     }
+    private var sharedPref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +59,13 @@ class WeatherActivity : ComponentActivity() {
                     WeatherReport()
                 }
             }
+        }
+        //Initialize shared preferences and read the last search info
+        sharedPref = getSharedPreferences(SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE)
+        val city = sharedPref?.getString(KEY_CITY, "")
+        if (city?.isNotEmpty() == true) {
+            viewModel.city.value = city
+            viewModel.getWeatherReport()
         }
     }
 
@@ -84,6 +98,7 @@ class WeatherActivity : ComponentActivity() {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = {
                         viewModel.getWeatherReport()
+                        sharedPref?.edit()?.putString(KEY_CITY, viewModel.city.value)?.apply()
                         keyboardController?.hide()
                     }),
                     label = {
