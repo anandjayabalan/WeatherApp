@@ -1,8 +1,6 @@
 package com.example.weatherapp.dagger
 
-import com.example.weatherapp.api.Remote
 import com.example.weatherapp.api.WeatherApiService
-import com.example.weatherapp.api.WeatherRepository
 import com.example.weatherapp.common.Constants
 import dagger.Module
 import dagger.Provides
@@ -26,17 +24,5 @@ class WeatherModule {
     @Singleton
     fun provideWeatherApiService(retrofit: Retrofit): WeatherApiService {
         return retrofit.create(WeatherApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideRemote(api: WeatherApiService): Remote {
-        return Remote(api)
-    }
-
-    @Provides
-    @Singleton
-    fun provideRepository(remote: Remote): WeatherRepository {
-        return WeatherRepository(remote)
     }
 }

@@ -18,8 +18,12 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -70,16 +74,23 @@ class WeatherActivity : ComponentActivity() {
     @Composable
     private fun WeatherReport() {
         val keyboardController = LocalSoftwareKeyboardController.current
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .paint(
+                painterResource(id = R.drawable.sky_bg),
+                contentScale = ContentScale.FillBounds,
+                alpha = 0.5f
+            )) {
             Column {
                 Text(
                     text = stringResource(R.string.title),
                     style = TextStyle(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(id = R.color.purple_700)
                     ),
                     modifier = Modifier
-                        .padding(top = 8.dp)
+                        .padding(vertical = 24.dp)
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
@@ -92,7 +103,7 @@ class WeatherActivity : ComponentActivity() {
                         .padding(8.dp)
                         .background(Color.White, shape = RoundedCornerShape(8.dp))
                         .border(BorderStroke(1.dp, Color.DarkGray)),
-                    textStyle = TextStyle(color = Color.Black, fontSize = 14.sp),
+                    textStyle = TextStyle(color = Color.Black, fontSize = 16.sp),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = {
                         viewModel.getWeatherReport()
@@ -177,7 +188,7 @@ class WeatherActivity : ComponentActivity() {
             }
             Text(
                 text = info,
-                style = TextStyle(fontSize = 16.sp),
+                style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Medium, color = Color.DarkGray),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)

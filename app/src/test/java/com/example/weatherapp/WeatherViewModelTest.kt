@@ -43,7 +43,7 @@ class WeatherViewModelTest {
             Mockito.`when`(repo.getWeatherReport("Chennai")).thenReturn(flow { emit(response) })
             viewmodel.city.value = "Chennai"
             viewmodel.getWeatherReport()
-            assertTrue(viewmodel.uiState.value is WeatherResponseState.onSuccess)
+            assertTrue(viewmodel.uiState.value is WeatherResponseState.OnSuccess)
         }
     }
 
@@ -53,7 +53,7 @@ class WeatherViewModelTest {
             viewmodel.city.value = ""
             Mockito.`when`(repo.getWeatherReport("Chennai")).thenReturn(flow { emit(null) })
             viewmodel.getWeatherReport()
-            assertTrue(viewmodel.uiState.value is WeatherResponseState.onFailed)
+            assertTrue(viewmodel.uiState.value is WeatherResponseState.OnFailed)
         }
     }
 }

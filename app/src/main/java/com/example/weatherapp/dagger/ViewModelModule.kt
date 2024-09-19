@@ -1,19 +1,13 @@
 package com.example.weatherapp.dagger
 
-import com.example.weatherapp.api.WeatherRepository
-import com.example.weatherapp.model.WeatherViewModel
+import androidx.lifecycle.ViewModelProvider
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
 @Module
-class ViewModelModule {
+abstract class ViewModelModule {
 
-    @Provides
-    @Singleton
-    fun provideWeatherViewModelFactory(
-        repo: WeatherRepository
-    ): WeatherViewModel.WeatherViewModelFactory {
-        return WeatherViewModel.WeatherViewModelFactory(repo)
-    }
+    @Binds
+    abstract fun provideViewModelFactory(factory: ViewModelProvider.Factory): ViewModelProvider.Factory
+
 }

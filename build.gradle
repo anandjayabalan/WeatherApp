@@ -2,7 +2,7 @@ buildscript {
     ext {
         compose_ui_version = '1.6.8'
         retrofit_version = '2.9.0'
-        dagger_version = '2.48.1'
+        dagger_version = '2.52'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
